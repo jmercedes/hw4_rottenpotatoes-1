@@ -28,9 +28,13 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
   # enter step(s) to ensure that PG and R movies are visible
   # enter step(s) to ensure that other movies are not visible
   Given I check the following ratings: G, PG, R
+  And I uncheck the following ratings: PG-13
   When I press "Refresh"
-  Then I should not see 'Chocolat'
-  Then I should not see 'The Help'
+  Then I should not see "Chocolat"
+  Then I should not see "The Help"
+  Then I should see "Aladdin"
+  Then I should see "Amelie"
+  Then I should see "The Incredibles"
 
 Scenario: no ratings selected
   # see assignment

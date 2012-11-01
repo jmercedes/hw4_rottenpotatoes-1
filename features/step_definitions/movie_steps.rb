@@ -25,8 +25,12 @@ end
 #  "When I uncheck the following ratings: PG, G, R"
 #  "When I check the following ratings: G"
 
-When /I uncheck the following ratings: (.*)/ do |uncheck, rating_list|
+When /I uncheck the following ratings: (.*)/ do |rating_list|
   # HINT: use String#split to split up the rating_list, then
   #   iterate over the ratings and reuse the "When I check..." or
   #   "When I uncheck..." steps in lines 89-95 of web_steps.rb
+  rating=rating_list.split(",").each { |w| w.gsub(/\s+/,'') }
+  rating.each do |r|
+    step %{I uncheck "ratings_#{r}"}
+  end
 end
