@@ -10,9 +10,9 @@ Given /the following movies exist/ do |movies_table|
 end
 
 Given /I check the following ratings:(.*)/ do |rating_list|
-  rating=rating_list.gsub(/\w+/)
 # Make sure that one string (regexp) occurs before or after another one
-#   on the same page
+#   on the same page.
+  rating=rating_list.split(",").map { |w| w.gsub(/\s+/,'') }
   rating.each { |r| check("ratings_"+r) }
 end
 
@@ -21,14 +21,22 @@ When /I uncheck all of the ratings/ do
   step %{I uncheck the following ratings: #{all_ratings}}
 end
 
+When /I check all of the ratings/ do
+  all_ratings=Movie.select('DISTINCT rating').map { |m| m.rating }.join(", ")
+  step %{I check the following ratings: #{all_ratings}}
+end
+
 Then /I should not see any of the movies/ do
   step %{I should see 0 table row}
 end
 
+Then /I should see all of the movies/ do
+  step %{I should see 10 table row}
+end
+
 Then /I should see (\d+) table row[s]?/ do |num_rows|
   actual_number = page.all('#movies tbody tr').size
-  debugger
-    actual_number.should == num_rows
+  actual_number.to_s.should == num_rows
 end
 
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
