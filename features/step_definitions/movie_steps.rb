@@ -16,6 +16,21 @@ Given /I check the following ratings:(.*)/ do |rating_list|
   rating.each { |r| check("ratings_"+r) }
 end
 
+When /I uncheck all of the ratings/ do
+  all_ratings=Movie.select('DISTINCT rating').map { |m| m.rating }.join(", ")
+  step %{I uncheck the following ratings: #{all_ratings}}
+end
+
+Then /I should not see any of the movies/ do
+  step %{I should see 0 table row}
+end
+
+Then /I should see (\d+) table row[s]?/ do |num_rows|
+  actual_number = page.all('#movies tbody tr').size
+  debugger
+    actual_number.should == num_rows
+end
+
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.body is the entire content of the page as a string.
@@ -29,7 +44,7 @@ When /I uncheck the following ratings: (.*)/ do |rating_list|
   # HINT: use String#split to split up the rating_list, then
   #   iterate over the ratings and reuse the "When I check..." or
   #   "When I uncheck..." steps in lines 89-95 of web_steps.rb
-  rating=rating_list.split(",").each { |w| w.gsub(/\s+/,'') }
+    rating=rating_list.split(",").map { |w| w.gsub(/\s+/,'') }
   rating.each do |r|
     step %{I uncheck "ratings_#{r}"}
   end
