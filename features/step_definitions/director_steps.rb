@@ -61,3 +61,9 @@ When /I uncheck the following ratings: (.*)/ do |rating_list|
     step %{I uncheck "ratings_#{r}"}
   end
 end
+
+
+#=================== NEW SECTION =======================
+#When /I go to the edit page for "(.*)"/ do |title|
+#  step %{I am on the #{title}'s edit page}
+#end
