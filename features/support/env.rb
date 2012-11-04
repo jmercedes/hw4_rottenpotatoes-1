@@ -55,4 +55,4 @@ end
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
 # Adding DEBUG support
-require 'ruby-debug'
+#require 'ruby-debug'
