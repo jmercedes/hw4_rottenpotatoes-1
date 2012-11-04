@@ -19,8 +19,6 @@ module NavigationHelpers
      id=Movie.find_by_title($1).id 
      raise "Can't find #{$1} movie" unless id
      edit_movie_path(id)
-debugger
-0
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

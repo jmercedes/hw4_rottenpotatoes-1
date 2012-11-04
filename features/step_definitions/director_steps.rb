@@ -67,3 +67,8 @@ end
 #When /I go to the edit page for "(.*)"/ do |title|
 #  step %{I am on the #{title}'s edit page}
 #end
+
+Then /the director of "(.*)" should be "(.*)"/ do |title, director|
+  cur_dir = Movie.find_by_title(title).director
+  director.eql? cur_dir
+end
