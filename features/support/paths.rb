@@ -19,6 +19,15 @@ module NavigationHelpers
      id=Movie.find_by_title($1).id 
      raise "Can't find #{$1} movie" unless id
      edit_movie_path(id)
+    when /^the details page for "(.*)"/ then
+     id=Movie.find_by_title($1).id
+     raise "Can't find #{$1} movie" unless id
+     movie_path(id)
+    when /^the Similar Movies page for "(.*)"/ then
+     id=Movie.find_by_title($1).id
+     raise "Can't find #{$1} movie" unless id
+     similar_director_movie_path(id)
+     
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
