@@ -14,7 +14,7 @@ describe MoviesController do
     it 'should make the similar director results available to that template' do
       fake_results = [mock('Movie'), mock('Movie')]
       Movie.stub(:find_similar_director).and_return(fake_results)
-      visit '/movies/1/similar_director'
+      get :similar_director, { :id => '1' }
       assigns[:movies].should eq(fake_results)
     end
   end
