@@ -11,6 +11,11 @@ SimpleCov.start 'rails'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+# empties the database. it is best to use the test database like you would in real life - deleting and creating records - and to be safe we start with an empty database
+def empty_database
+   Movie.destroy_all
+end
+
 RSpec.configure do |config|
   # ## Mock Framework
   #

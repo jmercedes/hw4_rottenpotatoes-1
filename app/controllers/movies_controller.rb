@@ -57,13 +57,20 @@ class MoviesController < ApplicationController
     redirect_to movies_path
   end
 
+#  def similar_director  # Route /movies/:id/similar_director
+#    movie_caller = Movie.find_by_id(params[:id])
+#    @movies = Movie.find_all_by_director(movie_caller.director) # look up movies with the same director as the movie that called this method
+#    @movies.delete(movie_caller) unless @movies.nil?
+#    if @movies.empty? or @movies.nil?
+#      flash[:warning] = %Q{'Alien' has no director info}
+#      redirect_to movies_path
+#    end
+#  end
   def similar_director  # Route /movies/:id/similar_director
-    movie_caller = Movie.find_by_id(params[:id])
-    @movies = Movie.find_all_by_director(movie_caller.director) # look up movies with the same director as the movie that called this method
-    @movies.delete(movie_caller) unless @movies.nil?
+    @movies = Movie.find_similar_director(params[:id])
     if @movies.empty? or @movies.nil?
-      flash[:warning] = %Q{'Alien' has no director info}
-      redirect_to movies_path
+     flash[:warning] = %Q{'Alien' has no director info}
+     redirect_to movies_path
     end
   end
 end
