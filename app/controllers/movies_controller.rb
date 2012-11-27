@@ -72,7 +72,7 @@ class MoviesController < ApplicationController
 #  end
   def similar_director  # Route /movies/:id/similar_director
     @movies = Movie.find_similar_director(params[:id])
-    if @movies.empty? or @movies.nil?
+    if @movies.nil? or @movies.empty?
      flash[:warning] = %Q{'Alien' has no director info}
      redirect_to movies_path
     end

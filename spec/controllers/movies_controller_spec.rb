@@ -7,7 +7,8 @@ describe MoviesController do
      visit '/movies/1/similar_director'
     end
     it 'should select the Similar Director template for rendering' do
-      Movie.stub(:find_similar_director)
+      fake_results = [mock('Movie'), mock('Movie')]
+      Movie.stub(:find_similar_director).and_return(fake_results)
       visit '/movies/1/similar_director'
       response.should render_template('similar_director')
     end
